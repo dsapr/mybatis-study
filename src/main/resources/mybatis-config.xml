@@ -27,7 +27,21 @@
         </environment>
     </environments>
 
+<!--    <mappers>-->
+<!--        <mapper resource="mybatis/simple/mapper/CountryMapper.xml" />-->
+<!--        <mapper resource="mybatis/simple/mapper/UserMapper.xml" />-->
+<!--        <mapper resource="mybatis/simple/mapper/RoleMapper.xml" />-->
+<!--        <mapper resource="mybatis/simple/mapper/PrivilegeMapper.xml" />-->
+<!--        <mapper resource="mybatis/simple/mapper/UserRoleMapper.xml" />-->
+<!--        <mapper resource="mybatis/simple/mapper/RolePrivilegeMapper.xml" />-->
+<!--    </mappers>-->
     <mappers>
-        <mapper resource="mybatis/simple/mapper/CountryMapper.xml" />
+        <!--
+            查找包下所有接口进行循环操作：
+                1. 判断接口对应的命名空间是否已存在，存在则抛出异常
+                2. 加载接口对应的 XML 映射文件，将接口权限定名转换为路径，以 .xml 为后缀搜索 XML 资源，如果找到就解析 XML。
+                3. 处理接口中的注解方法
+         -->
+        <package name="com.dsapr.simple.mapper"/>
     </mappers>
 </configuration>
