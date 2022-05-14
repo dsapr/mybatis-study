@@ -82,4 +82,29 @@ public class UserMapperTest extends BaseMapperTest{
             sqlSession.close();
         }
     }
+
+    @Test
+    public void testInsert2() {
+        SqlSession sqlSession = getSqlSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            SysUser user = SysUser.builder()
+                    .userName("test1")
+                    .userPassword("123456")
+                    .userEmail("test@qq.com")
+                    .userInfo("test info")
+                    .headImg(new byte[]{1,2,3})
+                    .createTime(new Date())
+                    .build();
+            int result = userMapper.insert2(user);
+            // 只插入一条数据
+            Assert.assertEquals(1, result);
+            // 因为 id 回写，所以 id 不为 null
+            Assert.assertNotNull(user.getId());
+        } finally {
+            sqlSession.rollback();
+            // 不要忘记关闭 sqlSession
+            sqlSession.close();
+        }
+    }
 }
